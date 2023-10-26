@@ -4,16 +4,58 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Extensions.Talon;
+import frc.robot.Constants;
+import frc.robot.extensions.Talon;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
 
-  WPI_TalonSRX FLMotor;
+  WPI_TalonSRX leftMotorOne;
+  WPI_TalonSRX leftMotorTwo;
+  WPI_TalonSRX leftMotorThree;
+  WPI_TalonSRX leftMotorFour;
+  WPI_TalonSRX rightMotorOne;
+  WPI_TalonSRX rightMotorTwo;
+  WPI_TalonSRX rightMotorThree;
+  WPI_TalonSRX rightMotorFour;
 
-  public Drivetrain() {}
+  MotorControllerGroup leftMotors;
+  MotorControllerGroup rightMotors;
+
+  DifferentialDrive diffDrive;
+
+  Double m_MaxSpeed = Constants.maxspeed;
+public Object differentialDrive;
+
+
+  public Drivetrain() {
+    leftMotorOne = Talon.createDefaultTalon(Constants.leftMotorOneID);
+    leftMotorTwo = Talon.createDefaultTalon(Constants.leftMotorTwoID);
+    leftMotorThree = Talon.createDefaultTalon(Constants.leftMotorThreeID);
+    leftMotorFour = Talon.createDefaultTalon(Constants.leftMotorFourID);
+    rightMotorOne = Talon.createDefaultTalon(Constants.rightMotorOneID);
+    rightMotorTwo = Talon.createDefaultTalon(Constants.rightMotorTwoID);
+    rightMotorThree = Talon.createDefaultTalon(Constants.rightMotorThreeID);
+    rightMotorFour = Talon.createDefaultTalon(Constants.rightMotorFourID);
+
+    leftMotors = new MotorControllerGroup(leftMotorOne, leftMotorTwo, leftMotorThree, leftMotorFour);
+    rightMotors = new MotorControllerGroup(rightMotorOne, rightMotorTwo, rightMotorThree, rightMotorFour);
+
+    diffDrive = new DifferentialDrive(leftMotorFour, rightMotorFour);
+    diffDrive.setMaxOutput(m_MaxSpeed);
+
+  }
+
+  public void stopMotors(){
+    leftMotors.stopMotor();
+    rightMotors.stopMotor();
+  }
 
   /**
    * Example command factory method.
