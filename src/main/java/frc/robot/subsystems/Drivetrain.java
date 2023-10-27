@@ -46,9 +46,11 @@ public Object differentialDrive;
 
     leftMotors = new MotorControllerGroup(leftMotorOne, leftMotorTwo, leftMotorThree, leftMotorFour);
     rightMotors = new MotorControllerGroup(rightMotorOne, rightMotorTwo, rightMotorThree, rightMotorFour);
+    rightMotors.setInverted(true);
 
     diffDrive = new DifferentialDrive(leftMotorFour, rightMotorFour);
     diffDrive.setMaxOutput(m_MaxSpeed);
+    
 
   }
 
@@ -90,4 +92,8 @@ public Object differentialDrive;
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+
+public Object diffDrive(double leftY, double rightY) {
+    return null;
+}
 }
