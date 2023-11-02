@@ -7,7 +7,12 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.MoveShooterUp;
+import frc.robot.commands.MoveShooterDown;
+import frc.robot.commands.ShooterMagToggle;
+import frc.robot.commands.ShooterSolenoidToggle;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -27,6 +32,7 @@ public class RobotContainer {
   private final Drivetrain m_exampleSubsystem = new Drivetrain();
 
   private final Drivetrain m_Drivetrain = new Drivetrain();
+  private final Shooter m_Shooter = new Shooter();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -37,7 +43,6 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    configureBindings();
     //Declares type of command
     m_Drivetrain.setDefaultCommand(Commands.run(
     
@@ -45,8 +50,23 @@ public class RobotContainer {
     () -> m_Drivetrain.diffDrive(m_driverController.getLeftY(), m_driverController.getRightY()),
     m_Drivetrain
 
+
+
     )
     );
+/* 
+    //Declares type of command
+    m_Shooter.whileTrue(Commands.run(
+    
+    //Executes Tank Drive using drivetrainController
+    () -> m_Shooter.ShooterAim_Up(m_driverController.get),
+    m_Shooter */
+
+
+
+
+
+    
 
   }
 
@@ -67,8 +87,8 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_driverController.a().whileTrue(m_Shooter.MoveShooterDown());
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

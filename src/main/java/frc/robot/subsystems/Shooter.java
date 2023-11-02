@@ -4,27 +4,52 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.Constants;
 import frc.robot.extensions.Talon;
+
 public class Shooter extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  WPI_TalonSRX shooterAim;
-  Solenoid shooterSolenoid;
-  Solenoid shooterMag;
+  static WPI_TalonSRX shooterAim;
+  DoubleSolenoid shooterSolenoid;
+  DoubleSolenoid shooterMag;
+  Double m_MaxSpeed = Constants.maxspeed;
+   
   public Shooter() {
-    shooterAim = new WPI_TalonSRX(Constants.shooterMotor);
+    shooterAim = Talon.createDefaultTalon(Constants.shooterMotor);
     shooterAim.setInverted(true);
 
-    shooterSolenoid = new Solenoid (module)
+    shooterSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 1);
+    shooterMag = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 0);
+
+
   }
 
+
+  public void ShooterMag_Toggle(){
+    shooterMag.toggle();
+  }
+  
+  public void ShooterSolenoid_Toggle() {
+    shooterSolenoid.toggle();
+  }
+
+  public static void ShooterAim_Up() {
+    shooterAim.set(Constants.maxspeed);
+  }
+
+  public static void shooterAim_Down() {
+    shooterAim.set(-Constants.maxspeed);
+  }
+  
   /**
    * Example command factory method.
    *
@@ -57,5 +82,10 @@ public class Shooter extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+  }
+
+
+  public Command MoveShooterDown() {
+    return null;
   }
 }
