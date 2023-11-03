@@ -22,10 +22,10 @@ public final class Constants {
   public static final int rightMotorTwoID = 22;
   public static final int rightMotorThreeID = 23;
   public static final int rightMotorFourID = 24;
-  public static final int shooterMotor = 02;
-  public static double maxspeed = 01;
+  public static final int shooterMotor = 2;
+  public static double maxspeed = 1;
   public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
+  public static final int kDriverControllerPort = 0;
 
   }
 }

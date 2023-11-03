@@ -27,8 +27,8 @@ public class Shooter extends SubsystemBase {
     shooterAim = Talon.createDefaultTalon(Constants.shooterMotor);
     shooterAim.setInverted(true);
 
-    shooterSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 1);
-    shooterMag = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 0);
+    shooterSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+    shooterMag = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
 
 
   }
@@ -85,7 +85,5 @@ public class Shooter extends SubsystemBase {
   }
 
 
-  public Command MoveShooterDown() {
-    return null;
-  }
+  
 }

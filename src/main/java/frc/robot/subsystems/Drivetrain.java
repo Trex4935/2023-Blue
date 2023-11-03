@@ -28,10 +28,10 @@ public class Drivetrain extends SubsystemBase {
   MotorControllerGroup leftMotors;
   MotorControllerGroup rightMotors;
 
-  DifferentialDrive diffDrive;
+  public DifferentialDrive diffDrive;
 
   Double m_MaxSpeed = Constants.maxspeed;
-public Object differentialDrive;
+  public Object differentialDrive;
 
 
   public Drivetrain() {
@@ -48,10 +48,8 @@ public Object differentialDrive;
     rightMotors = new MotorControllerGroup(rightMotorOne, rightMotorTwo, rightMotorThree, rightMotorFour);
     rightMotors.setInverted(true);
 
-    diffDrive = new DifferentialDrive(leftMotorFour, rightMotorFour);
+    diffDrive = new DifferentialDrive(leftMotors, rightMotors);
     diffDrive.setMaxOutput(m_MaxSpeed);
-    
-
   }
 
   public void stopMotors(){
@@ -92,8 +90,4 @@ public Object differentialDrive;
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
-
-public Object diffDrive(double leftY, double rightY) {
-    return null;
-}
 }
