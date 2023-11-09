@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -46,7 +47,7 @@ public class Shooter extends SubsystemBase {
     shooterAim.set(Constants.maxspeed);
   }
 
-  public static void shooterAim_Down() {
+  public void shooterAim_Down() {
     shooterAim.set(-Constants.maxspeed);
   }
   
@@ -85,5 +86,7 @@ public class Shooter extends SubsystemBase {
   }
 
 
-  
+  public Command MoveShooterDown() {
+    return null;
+  }
 }

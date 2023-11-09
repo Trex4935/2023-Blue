@@ -79,7 +79,7 @@ public class RobotContainer {
     // pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
+    m_driverController.a().whileTrue(m_Shooter.MoveShooterDown());
   }
 
   /**
