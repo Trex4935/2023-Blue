@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-import frc.robot.subsystems.Shooter;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -78,8 +78,10 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-    m_driverController.a().whileTrue(m_Shooter.MoveShooterDown());
+    m_driverController.b().whileFalse(m_Shooter.shooterDown());
+    m_driverController.b().whileFalse(getAutonomousCommand());
+    m_driverController.a().onTrue(m_Shooter.shooterUp());
+   // m_driverController.a().whileTrue(System.out.println("Button A"));
   }
 
   /**

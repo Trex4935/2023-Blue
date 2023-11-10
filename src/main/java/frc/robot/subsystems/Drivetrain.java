@@ -68,6 +68,7 @@ public class Drivetrain extends SubsystemBase {
     return runOnce(
         () -> {
           /* one-time action goes here */
+          System.out.println("example method called");
         });
   }
 

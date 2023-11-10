@@ -4,28 +4,28 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+
 import frc.robot.Constants;
 import frc.robot.extensions.Talon;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
+  XboxController controller;
   static WPI_TalonSRX shooterAim;
   DoubleSolenoid shooterSolenoid;
   DoubleSolenoid shooterMag;
   Double m_MaxSpeed = Constants.maxspeed;
    
   public Shooter() {
-    shooterAim = Talon.createDefaultTalon(Constants.shooterMotor);
+    shooterAim = Talon.createDefaultTalon(Constants.shooterMotorID);
     shooterAim.setInverted(true);
 
     shooterSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
@@ -43,26 +43,43 @@ public class Shooter extends SubsystemBase {
     shooterSolenoid.toggle();
   }
 
-  public static void ShooterAim_Up() {
-    shooterAim.set(Constants.maxspeed);
+  public void ShooterAim_Up() {
+    shooterAim.set(.1);
   }
 
   public void shooterAim_Down() {
-    shooterAim.set(-Constants.maxspeed);
+    shooterAim.set(.1);
   }
-  
+  public void shooterAim_Stop(){
+    shooterAim.stopMotor();
+  }
   /**
    * Example command factory method.
    *
    * @return a command
    */
-  public CommandBase exampleMethodCommand() {
+  public CommandBase shooterUp() {
     // Inline construction of command goes here.
     // Subsystem::RunOnce implicitly requires `this` subsystem.
     return runOnce(
         () -> {
-          /* one-time action goes here */
+          ShooterAim_Up();
         });
+  }
+
+  public CommandBase shooterDown() {
+    // Inline construction of command goes here.
+    // Subsystem::RunOnce implicitly requires `this` subsystem.
+    return runOnce(
+        () -> {
+          shooterAim_Down();
+        });
+  }
+  public CommandBase shooterStop() {
+    // Inline construction of command goes here.
+    // Subsystem::RunOnce implicitly requires `this` subsystem.
+    return runEnd(shooterDown(), shooterStop());
+
   }
 
   /**
@@ -78,15 +95,19 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (controller.getAButton() == true){
+      System.out.println("motor up");
+    }
+    if (controller.getBButton()== true){
+      System.out.println("motor down");
+    }
+    else{
+      shooterStop();
+    }
   }
 
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
-  }
-
-
-  public Command MoveShooterDown() {
-    return null;
   }
 }
