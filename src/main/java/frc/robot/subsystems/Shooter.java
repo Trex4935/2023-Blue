@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.extensions.Talon;
 
@@ -20,20 +20,33 @@ public class Shooter extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   XboxController controller;
   static WPI_TalonSRX shooterAim;
-  DoubleSolenoid shooterSolenoid;
-  DoubleSolenoid shooterMag;
+  Solenoid shooterSolenoid;
+  Solenoid shooterMag;
   Double m_MaxSpeed = Constants.maxspeed;
    
   public Shooter() {
     shooterAim = Talon.createDefaultTalon(Constants.shooterMotorID);
     shooterAim.setInverted(true);
 
-    shooterSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
-    shooterMag = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
-
+    shooterSolenoid = new Solenoid(1, PneumaticsModuleType.CTREPCM, 1);
+    shooterMag = new Solenoid(1,PneumaticsModuleType.CTREPCM, 0);
 
   }
 
+    // shoot with delay
+    public void pewPew() {
+      // System.out.println("-- Command Out --");
+      // Open Air valve to shoot ball
+      shooterSolenoid.set(true);
+      Timer.delay(0.3);
+      // Close valve 
+      shooterSolenoid.set(false);
+      // Open reload slot
+      shooterMag.set(false);
+      Timer.delay(0.4);
+      // Close reload slot
+      shooterMag.set(true);
+    }
 
   public void ShooterMag_Toggle(){
     shooterMag.toggle();
