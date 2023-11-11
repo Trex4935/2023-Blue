@@ -76,12 +76,23 @@ public class Shooter extends SubsystemBase {
         });
   }
   public CommandBase shooterStop() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runEnd(shooterDown(), shooterStop());
-
+    return runOnce(
+        () -> {
+          shooterAim.stopMotor();
+        });
   }
-
+  public CommandBase Run_Cannon_Motor_up() {
+    return runEnd(
+        () -> ShooterAim_Up(), 
+        () -> shooterAim_Stop() 
+        );
+  }
+  public CommandBase Run_Cannon_Motor_down() {
+    return runEnd(
+        () -> shooterAim_Down(), 
+        () -> shooterAim_Stop() 
+        );
+  }
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
@@ -95,15 +106,15 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (controller.getAButton() == true){
-      System.out.println("motor up");
-    }
-    if (controller.getBButton()== true){
-      System.out.println("motor down");
-    }
-    else{
-      shooterStop();
-    }
+ //   if (controller.getAButton() == true){
+ //     System.out.println("motor up");
+ //   }
+ //   if (controller.getBButton()== true){
+ //     System.out.println("motor down");
+ //   }
+ //   else{
+ //     shooterStop();
+ //   }
   }
 
   @Override

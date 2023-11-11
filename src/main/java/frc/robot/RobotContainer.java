@@ -78,9 +78,11 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
     // cancelling on release.
-    m_driverController.b().whileFalse(m_Shooter.shooterDown());
-    m_driverController.b().whileFalse(getAutonomousCommand());
-    m_driverController.a().onTrue(m_Shooter.shooterUp());
+    //m_driverController.b().onTrue(m_Shooter.shooterDown());
+    //m_driverController.b().whileFalse(getAutonomousCommand());
+    m_driverController.a().whileTrue(m_Shooter.Run_Cannon_Motor_up());
+    m_driverController.y().whileTrue(m_Shooter.Run_Cannon_Motor_down());
+
    // m_driverController.a().whileTrue(System.out.println("Button A"));
   }
 
