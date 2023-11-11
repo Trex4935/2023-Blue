@@ -38,7 +38,7 @@ public class Shooter extends SubsystemBase {
       // System.out.println("-- Command Out --");
       // Open Air valve to shoot ball
       shooterSolenoid.set(true);
-      Timer.delay(0.3);
+      Timer.delay(0.15);
       // Close valve 
       shooterSolenoid.set(false);
       // Open reload slot
@@ -61,7 +61,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void shooterAim_Down() {
-    shooterAim.set(.1);
+    shooterAim.set(-.1);
   }
   public void shooterAim_Stop(){
     shooterAim.stopMotor();
@@ -106,6 +106,10 @@ public class Shooter extends SubsystemBase {
         () -> shooterAim_Stop() 
         );
   }
+  public CommandBase shoot_ball() {
+    return runOnce(() -> pewPew());
+  }
+
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *

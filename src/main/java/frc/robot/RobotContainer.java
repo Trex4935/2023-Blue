@@ -80,8 +80,9 @@ public class RobotContainer {
     // cancelling on release.
     //m_driverController.b().onTrue(m_Shooter.shooterDown());
     //m_driverController.b().whileFalse(getAutonomousCommand());
-    m_driverController.a().whileTrue(m_Shooter.Run_Cannon_Motor_up());
-    m_driverController.y().whileTrue(m_Shooter.Run_Cannon_Motor_down());
+    m_driverController.y().whileTrue(m_Shooter.Run_Cannon_Motor_up());
+    m_driverController.a().whileTrue(m_Shooter.Run_Cannon_Motor_down());
+    m_driverController.rightBumper().onTrue(m_Shooter.shoot_ball());
 
    // m_driverController.a().whileTrue(System.out.println("Button A"));
   }
