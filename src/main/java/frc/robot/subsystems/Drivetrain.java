@@ -66,13 +66,13 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void rotateLeft(){
-    leftMotors.set(0.5);
-    rightMotors.set(-0.5);
+    leftMotors.set(-0.35);
+    rightMotors.set(0.35);
   }
 
   public void rotateRight(){
-    leftMotors.set(-0.5);
-    rightMotors.set(0.5);
+    leftMotors.set(0.35);
+    rightMotors.set(-0.35);
   }
 
   /**
