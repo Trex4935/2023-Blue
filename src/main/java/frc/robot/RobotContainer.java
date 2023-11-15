@@ -13,9 +13,13 @@ import frc.robot.commands.ShooterMagToggle;
 import frc.robot.commands.ShooterSolenoidToggle;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -33,6 +37,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_exampleSubsystem = new Drivetrain();
+  private final CommandJoystick m_dancePad = new CommandJoystick(1);
 
   private final Drivetrain m_Drivetrain = new Drivetrain();
   private final Shooter m_Shooter = new Shooter();
@@ -52,7 +57,9 @@ public class RobotContainer {
     m_Drivetrain.setDefaultCommand(Commands.run(
         // Executes Tank Drive using drivetrainController
         () -> m_Drivetrain.diffDrive.tankDrive(m_driverController.getLeftY(), m_driverController.getRightY()),
-    m_Drivetrain));
+    m_Drivetrain));   
+
+
 
   }
 
@@ -84,6 +91,22 @@ public class RobotContainer {
     m_driverController.a().whileTrue(m_Shooter.Run_Cannon_Motor_down());
     m_driverController.rightBumper().onTrue(m_Shooter.shoot_ball());
 
+    m_dancePad.button(7).whileTrue(m_Shooter.Run_Cannon_Motor_up());
+    
+    m_dancePad.button(8).whileTrue(m_Shooter.Run_Cannon_Motor_down());
+
+    m_dancePad.button(3).whileTrue(m_Drivetrain.moveMotorsForward());
+    m_dancePad.button(2).whileTrue(m_Drivetrain.moveMotorsBackward());
+
+    m_dancePad.button(6).onTrue(m_Shooter.shoot_ball());
+
+    m_dancePad.button(1).whileTrue(m_Drivetrain.rotateMotorsLeft());
+    m_dancePad.button(4).whileTrue(m_Drivetrain.rotateMotorsRight());
+    
+    
+
+
+    //m_dancePad.
    // m_driverController.a().whileTrue(System.out.println("Button A"));
   }
 

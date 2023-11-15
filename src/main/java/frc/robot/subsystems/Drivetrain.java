@@ -49,12 +49,30 @@ public class Drivetrain extends SubsystemBase {
     rightMotors.setInverted(true);
 
     diffDrive = new DifferentialDrive(leftMotors, rightMotors);
-    diffDrive.setMaxOutput(m_MaxSpeed);
+    
   }
 
   public void stopMotors(){
     leftMotors.stopMotor();
     rightMotors.stopMotor();
+  }
+
+  public void motorBackward(){
+    diffDrive.tankDrive(-0.5, -0.5);
+  }
+
+  public void motorForward(){
+    diffDrive.tankDrive(0.5, 0.5);
+  }
+
+  public void rotateLeft(){
+    leftMotors.set(0.5);
+    rightMotors.set(-0.5);
+  }
+
+  public void rotateRight(){
+    leftMotors.set(-0.5);
+    rightMotors.set(0.5);
   }
 
   /**
@@ -70,6 +88,34 @@ public class Drivetrain extends SubsystemBase {
           /* one-time action goes here */
           System.out.println("example method called");
         });
+  }
+
+  public CommandBase moveMotorsForward(){
+    return runEnd(
+        () -> motorForward(), 
+        () -> stopMotors() 
+        );
+  }
+
+  public CommandBase moveMotorsBackward(){
+    return runEnd(
+        () -> motorBackward(), 
+        () -> stopMotors() 
+        );
+  }
+
+  public CommandBase rotateMotorsRight(){
+    return runEnd(
+        () -> rotateRight(), 
+        () -> stopMotors() 
+        );
+  }
+
+  public CommandBase rotateMotorsLeft(){
+    return runEnd(
+        () -> rotateLeft(), 
+        () -> stopMotors() 
+        );
   }
 
   /**
@@ -91,4 +137,5 @@ public class Drivetrain extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+
 }
