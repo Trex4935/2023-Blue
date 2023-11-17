@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -74,7 +74,13 @@ public class Drivetrain extends SubsystemBase {
     leftMotors.set(0.35);
     rightMotors.set(-0.35);
   }
+  public void disableRobot(){
+    CommandScheduler.getInstance().disable();
+  }
 
+  public void enableRobot(){
+    CommandScheduler.getInstance().enable();
+  }
   /**
    * Example command factory method.
    *
@@ -89,7 +95,11 @@ public class Drivetrain extends SubsystemBase {
           System.out.println("example method called");
         });
   }
-
+  public CommandBase StopMotors(){
+    return runOnce( 
+        () -> stopMotors() 
+        );
+  }
   public CommandBase moveMotorsForward(){
     return runEnd(
         () -> motorForward(), 
@@ -116,6 +126,18 @@ public class Drivetrain extends SubsystemBase {
         () -> rotateLeft(), 
         () -> stopMotors() 
         );
+  }
+
+  public CommandBase DisableRobot(){
+    return runOnce(
+      () -> disableRobot()
+    );
+  }
+
+  public CommandBase EnableRobot(){
+    return runOnce(
+      () -> enableRobot()
+    );
   }
 
   /**

@@ -48,6 +48,11 @@ public class Shooter extends SubsystemBase {
       shooterMag.set(true);
     }
 
+  public void Mag_and_Soleniod_Stop(){
+    shooterMag.set(false);
+    shooterSolenoid.set(false);
+
+  }
   public void ShooterMag_Toggle(){
     shooterMag.toggle();
   }

@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
@@ -14,9 +13,11 @@ import frc.robot.commands.ShooterSolenoidToggle;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
@@ -36,6 +37,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final boolean x;
+  private final Robot m_Robot = new Robot();
   private final Drivetrain m_exampleSubsystem = new Drivetrain();
   private final CommandJoystick m_dancePad = new CommandJoystick(1);
 
@@ -90,19 +93,28 @@ public class RobotContainer {
     m_driverController.y().whileTrue(m_Shooter.Run_Cannon_Motor_up());
     m_driverController.a().whileTrue(m_Shooter.Run_Cannon_Motor_down());
     m_driverController.rightBumper().onTrue(m_Shooter.shoot_ball());
-
+   // m_driverController.x().onTrue();
+   //  m_driverController.x().OnFalse(CommandScheduler.getInstance().enable());
+   while(x == false){
     m_dancePad.button(7).whileTrue(m_Shooter.Run_Cannon_Motor_up());
     
     m_dancePad.button(8).whileTrue(m_Shooter.Run_Cannon_Motor_down());
 
     m_dancePad.button(3).whileTrue(m_Drivetrain.moveMotorsForward());
     m_dancePad.button(2).whileTrue(m_Drivetrain.moveMotorsBackward());
-
+    m_dancePad.button(5).onTrue(m_Drivetrain.DisableRobot());
+    m_dancePad.button(5).onFalse(m_Drivetrain.EnableRobot());
     m_dancePad.button(6).onTrue(m_Shooter.shoot_ball());
 
     m_dancePad.button(1).whileTrue(m_Drivetrain.rotateMotorsLeft());
     m_dancePad.button(4).whileTrue(m_Drivetrain.rotateMotorsRight());
+ //   m_dancePad.button(4).whileFalse(m_Drivetrain.rotateMotorsRight());
+   }
+  while(x == true){
+    m_Drivetrain.StopMotors();
+    m_Shooter.shooterStop();
     
+  }
     
 
 
