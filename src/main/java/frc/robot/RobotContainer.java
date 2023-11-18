@@ -37,7 +37,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final boolean x;
+  // private final boolean x;
   private final Robot m_Robot = new Robot();
   private final Drivetrain m_exampleSubsystem = new Drivetrain();
   private final CommandJoystick m_dancePad = new CommandJoystick(1);
@@ -54,7 +54,9 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the trigger bindings
+    
     configureBindings();
+  
 
     // Declares type of command
     m_Drivetrain.setDefaultCommand(Commands.run(
@@ -81,6 +83,16 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+
+    boolean x = m_driverController.x().getAsBoolean();
+
+    while (x == true) {
+      
+    }
+
+    while (x == false) {
+      
+    }
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
@@ -90,37 +102,46 @@ public class RobotContainer {
     // cancelling on release.
     //m_driverController.b().onTrue(m_Shooter.shooterDown());
     //m_driverController.b().whileFalse(getAutonomousCommand());
+     {
+  
     m_driverController.y().whileTrue(m_Shooter.Run_Cannon_Motor_up());
     m_driverController.a().whileTrue(m_Shooter.Run_Cannon_Motor_down());
-    m_driverController.rightBumper().onTrue(m_Shooter.shoot_ball());
+    // m_driverController.rightBumper().onTrue(m_Shooter.shoot_ball());
+    m_driverController.rightBumper().and(m_dancePad.button(7)).whileTrue(m_Shooter.shoot_ball());
    // m_driverController.x().onTrue();
    //  m_driverController.x().OnFalse(CommandScheduler.getInstance().enable());
-   while(x == false){
-    m_dancePad.button(7).whileTrue(m_Shooter.Run_Cannon_Motor_up());
     
+    // m_driverController.x().whileTrue(m_Drivetrain.triggerEnable());
+    // m_driver
+    //Moves the cannon up and down using X and O respectfully
+    m_dancePad.button(7).whileTrue(m_Shooter.Run_Cannon_Motor_up());
     m_dancePad.button(8).whileTrue(m_Shooter.Run_Cannon_Motor_down());
 
+    // Moves robot forawrd and backwards with the up and down key repsectfully 
     m_dancePad.button(3).whileTrue(m_Drivetrain.moveMotorsForward());
     m_dancePad.button(2).whileTrue(m_Drivetrain.moveMotorsBackward());
+    
+    // Emergency Stop shenanigans
     m_dancePad.button(5).onTrue(m_Drivetrain.DisableRobot());
-    m_dancePad.button(5).onFalse(m_Drivetrain.EnableRobot());
+    m_dancePad.button(10).onTrue(m_Drivetrain.EnableRobot());
+
+    // Shoots ball using triangle
     m_dancePad.button(6).onTrue(m_Shooter.shoot_ball());
 
+    // Turns the robot left or roght based on the left or right buttons
     m_dancePad.button(1).whileTrue(m_Drivetrain.rotateMotorsLeft());
     m_dancePad.button(4).whileTrue(m_Drivetrain.rotateMotorsRight());
+
  //   m_dancePad.button(4).whileFalse(m_Drivetrain.rotateMotorsRight());
-   }
-  while(x == true){
-    m_Drivetrain.StopMotors();
-    m_Shooter.shooterStop();
+      }
+    }
     
-  }
     
 
 
     //m_dancePad.
    // m_driverController.a().whileTrue(System.out.println("Button A"));
-  }
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

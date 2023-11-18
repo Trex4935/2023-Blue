@@ -22,7 +22,7 @@ public class Talon {
 
         
         // Motor ramp when using open loop
-        public double openLoopRamp = 0;
+        public double openLoopRamp = 0.2;
 
         // Set motor limits
         //// normal output forward and reverse = 0% ... i.e. stopped

@@ -58,21 +58,21 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void motorBackward(){
-    diffDrive.tankDrive(-0.5, -0.5);
+    diffDrive.tankDrive(-0.4, -0.4);
   }
 
   public void motorForward(){
-    diffDrive.tankDrive(0.5, 0.5);
+    diffDrive.tankDrive(0.4, 0.4);
   }
 
   public void rotateLeft(){
-    leftMotors.set(-0.35);
-    rightMotors.set(0.35);
+    leftMotors.set(-0.4);
+    rightMotors.set(0.4);
   }
 
   public void rotateRight(){
-    leftMotors.set(0.35);
-    rightMotors.set(-0.35);
+    leftMotors.set(0.4);
+    rightMotors.set(-0.4);
   }
   public void disableRobot(){
     CommandScheduler.getInstance().disable();
@@ -134,12 +134,17 @@ public class Drivetrain extends SubsystemBase {
     );
   }
 
-  public CommandBase EnableRobot(){
+   public CommandBase EnableRobot(){
     return runOnce(
       () -> enableRobot()
-    );
+    ); 
   }
-
+  
+ public CommandBase triggerEnable(){
+  return runOnce(
+    () -> enableRobot()
+  );
+ }
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *

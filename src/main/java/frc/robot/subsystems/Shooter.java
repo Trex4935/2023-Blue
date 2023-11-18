@@ -71,6 +71,11 @@ public class Shooter extends SubsystemBase {
   public void shooterAim_Stop(){
     shooterAim.stopMotor();
   }
+  public void shooterEnable(){
+    pewPew();
+    ShooterMag_Toggle();
+    ShooterSolenoid_Toggle();
+  }
   /**
    * Example command factory method.
    *
@@ -114,6 +119,10 @@ public class Shooter extends SubsystemBase {
   public CommandBase shoot_ball() {
     return runOnce(() -> pewPew());
   }
+ /*  public CommandBase enable_shooter(){
+    return runOnce(() -> )
+  } */
+
 
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
